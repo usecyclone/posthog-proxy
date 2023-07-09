@@ -6,11 +6,11 @@ const nextConfig = {
     return [
       {
         source: "/static/:match*",
-        destination: "https://ph.usecyclone.dev/static/:match*",
+        destination: "https://app.posthog.com/static/:match*",
       },
       {
         source: "/:slug*",
-        destination: "/api/mintlify",
+        destination: "/api/continue",
       },
     ];
   },

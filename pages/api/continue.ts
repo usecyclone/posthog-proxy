@@ -93,7 +93,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
     request.body = new URLSearchParams(request.body).toString();
   }
 
-  // send request to posthog
+  // send request to posthog at continue
   const resp = await fetch("https://app.posthog.com" + request.url, {
     method: request.method,
     headers: headers,
@@ -101,13 +101,16 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
   });
   console.log("POSTHOG POST request", resp.status);
 
-  headers.host = "ph.usecyclone.dev";
+  headers.host = "app.posthog.com";
 
   // send a copy to cyclone
-  const resp2 = await fetch("https://ph.usecyclone.dev" + request.url, {
+  const resp2 = await fetch("https://app.posthog.com" + request.url, {
     method: request.method,
     headers: headers,
-    body: overwriteApiKey(request, process.env.MINTLIFY_API_KEY!),
+    body: overwriteApiKey(
+      request,
+      "phc_fV15A0YJ30ayiUaZZolVIt203gPpsdl2AzU7npwCHTt" // cyclone api key
+    ),
   });
   console.log("CYCLONE POST request", resp2.status);
 
